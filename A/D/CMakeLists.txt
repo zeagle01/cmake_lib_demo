@@ -1,0 +1,31 @@
+cmake_minimum_required(VERSION 3.15)
+
+project(D)
+
+add_library(D d.cpp d.h)
+
+target_include_directories(
+	D
+	PUBLIC
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/>
+	$<INSTALL_INTERFACE:include>
+)
+
+
+include(GNUInstallDirs)
+install(
+    TARGETS D
+    EXPORT D_export
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+install(FILES d.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/D)
+
+install(
+    EXPORT D_export
+    FILE D-config.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/D
+)
