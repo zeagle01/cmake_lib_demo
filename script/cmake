@@ -1,0 +1,1 @@
+cmake -B ../build -D CMAKE_INSTALL_PREFIX="/d/projects/cmake_lib_demo/install" ..
