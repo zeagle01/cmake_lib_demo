@@ -15,8 +15,6 @@ else()
 	endif()
 endif()
 
-enable_language(CUDA)
-
 add_executable(testA testA.cpp)
 target_link_libraries(testA PRIVATE A)
 
