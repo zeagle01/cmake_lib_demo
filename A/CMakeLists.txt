@@ -1,10 +1,45 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.17)
 
 project(A)
 
-add_subdirectory(B)
-add_subdirectory(C)
-add_subdirectory(D)
+##### B 
+set(USE_B_AS_LIB "OFF" CACHE BOOL "use B as lib")
+if(USE_B_AS_LIB)
+	find_package(B CONFIG REQUIRED)
+else()
+	add_subdirectory(B)
+	if(TARGET B)
+		message( "found target B!")
+	else()
+		message(FATAL_ERROR "can not find target B any wary")
+	endif()
+endif()
+
+##### C 
+set(USE_C_AS_LIB "OFF" CACHE BOOL "use C as lib")
+if(USE_C_AS_LIB)
+	find_package(C CONFIG REQUIRED)
+else()
+	add_subdirectory(C)
+	if(TARGET C)
+		message( "found target C!")
+	else()
+		message(FATAL_ERROR "can not find target B any wary")
+	endif()
+endif()
+
+##### D 
+set(USE_D_AS_LIB "OFF" CACHE BOOL "use D as lib")
+if(USE_D_AS_LIB)
+	find_package(D CONFIG REQUIRED)
+else()
+	add_subdirectory(D)
+	if(TARGET D)
+		message( "found target D!")
+	else()
+		message(FATAL_ERROR "can not find target D any wary")
+	endif()
+endif()
 
 add_library(A SHARED a.cpp a.h)
 
@@ -17,6 +52,17 @@ target_include_directories(
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/../>
 	$<INSTALL_INTERFACE:include>
 )
+
+include(FindCUDAToolkit)
+if(CUDAToolkit_FOUND)
+	message("CUDAToolkit_BIN_DIR: ${CUDAToolkit_BIN_DIR}")
+	message("CUDAToolkit_INCLUDE_DIRS: ${CUDAToolkit_INCLUDE_DIRS}")
+	message("CUDAToolkit_LIBRARY_DIR: ${CUDAToolkit_LIBRARY_DIR}")
+	message("CUDAToolkit_TARGET_DIR: ${CUDAToolkit_TARGET_DIR}")
+	message("CUDAToolkit_NVCC_EXECUTABLE: ${CUDAToolkit_NVCC_EXECUTABLE}")
+
+	enable_language(CUDA)
+endif()
 
 target_compile_definitions(A PRIVATE IS_A)
 

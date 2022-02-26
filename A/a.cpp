@@ -1,7 +1,7 @@
 
 #include "a.h"
-#include "b.h"
-#include "c.h"
+#include "B/b.h"
+#include "C/c.h"
 #include <iostream>
 
 void A::greet()

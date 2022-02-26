@@ -26,6 +26,6 @@ install(FILES d.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/D)
 
 install(
     EXPORT D_export
-    FILE D-config.cmake
+    FILE DConfig.cmake
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/D
 )

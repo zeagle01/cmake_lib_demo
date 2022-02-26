@@ -12,9 +12,12 @@ target_include_directories(
 )
 
 
+if(TARGET D)
+else()
+	find_package(D CONFIG REQUIRED)
+endif()
+
 target_link_libraries(C PUBLIC D)
-
-
 
 
 include(GNUInstallDirs)

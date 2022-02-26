@@ -1,18 +1,21 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.17)
 
-project(hello)
+project(cmake_demo)
 
 set(USE_A_AS_LIB "OFF" CACHE BOOL "use A as lib")
 
-if(TARGET A)
-	message(" target A exsit")
+if(USE_A_AS_LIB)
+	find_package(A CONFIG REQUIRED)
 else()
-	if(USE_A_AS_LIB)
-		find_package(A CONFIG REQUIRED)
+	add_subdirectory(A)
+	if(TARGET A)
+		message( "found target A!")
 	else()
-		add_subdirectory(A)
+		message(FATAL_ERROR "can not find target A any wary")
 	endif()
 endif()
+
+enable_language(CUDA)
 
 add_executable(testA testA.cpp)
 target_link_libraries(testA PRIVATE A)
