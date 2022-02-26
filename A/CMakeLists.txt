@@ -2,6 +2,19 @@ cmake_minimum_required(VERSION 3.17)
 
 project(A)
 
+##### D 
+set(USE_D_AS_LIB "OFF" CACHE BOOL "use D as lib")
+if(USE_D_AS_LIB)
+	find_package(D CONFIG REQUIRED)
+else()
+	add_subdirectory(D)
+	if(TARGET D)
+		message( "found target D!")
+	else()
+		message(FATAL_ERROR "can not find target D any wary")
+	endif()
+endif()
+
 ##### B 
 set(USE_B_AS_LIB "OFF" CACHE BOOL "use B as lib")
 if(USE_B_AS_LIB)
@@ -28,29 +41,18 @@ else()
 	endif()
 endif()
 
-##### D 
-set(USE_D_AS_LIB "OFF" CACHE BOOL "use D as lib")
-if(USE_D_AS_LIB)
-	find_package(D CONFIG REQUIRED)
-else()
-	add_subdirectory(D)
-	if(TARGET D)
-		message( "found target D!")
-	else()
-		message(FATAL_ERROR "can not find target D any wary")
-	endif()
-endif()
 
 add_library(A SHARED a.cpp a.h)
 
 target_include_directories(
 	A
 	PUBLIC
-	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/>
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../>
-	$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/>
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/../>
 	$<INSTALL_INTERFACE:include>
+	PRIVATE
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/>
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/>
 )
 
 include(FindCUDAToolkit)
