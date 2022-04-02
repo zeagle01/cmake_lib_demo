@@ -42,3 +42,11 @@ add_custom_command(
 	"-- copy $<TARGET_FILE:A> -> $<TARGET_FILE_DIR:testA> "
 ) 
 
+
+
+install(TARGETS testA  RUNTIME DESTINATION test_out)
+
+install(FILES $<TARGET_PDB_FILE:testA> DESTINATION test_out)
+
+#install(FILES $<TARGET_PDB_FILE:A> DESTINATION test_out)# install A's pdb doesn't works
+install(FILES $<TARGET_FILE:A> DESTINATION test_out)# install A's dll 'work
