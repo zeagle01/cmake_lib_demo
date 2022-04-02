@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "A/a_export.h"
+#include "A/A_EXP.h"
 
 class A_EXPORT A
 {

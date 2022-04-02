@@ -61,7 +61,7 @@ target_link_libraries(A PUBLIC C)
 
 
 include(GenerateExportHeader)
-generate_export_header(A)
+generate_export_header(A EXPORT_FILE_NAME A_EXP.h)
 
 
 include(GNUInstallDirs)
