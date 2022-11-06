@@ -61,7 +61,7 @@ target_link_libraries(A PUBLIC C)
 
 
 include(GenerateExportHeader)
-generate_export_header(A EXPORT_FILE_NAME A_EXP.h)
+generate_export_header(A EXPORT_FILE_NAME A_export.h)
 
 
 include(GNUInstallDirs)
@@ -76,7 +76,7 @@ install(
 
 install(FILES a.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/A)
 install(FILES A-config.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/A)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/a_export.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/A)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/A_export.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/A)
 
 install(
     EXPORT A_export
