@@ -10,6 +10,7 @@ namespace foo_core
 	void  greet()
 	{
 		printf(" foo_core greetings\n");
+		std::getchar();
 
 	}
 }
